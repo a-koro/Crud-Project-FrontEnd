@@ -4,6 +4,8 @@ import Navbar from './components/Navbar';
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import Article from './components/Article';
 import Author from './components/Author';
+import ArticleList from './components/ArticleList';
+import ArticleForm from './components/ArticleForm';
 
 function App() {
 
@@ -21,8 +23,9 @@ function App() {
         <Navbar/>
         <button onClick={fetchFromGetArticles}>Get Articles</button>
         <Switch>
-          <Route exact path="/" component={Article}/>
-          <Route path="/articles" component={Author}/>
+          <Route exact path="/" component={ArticleList}/>
+          <Route path="/articles" component={ArticleList}/>
+          <Route path="/articleForm" component={ArticleForm}/>
           <Route path="/admin"/>
         </Switch>
       </BrowserRouter>
