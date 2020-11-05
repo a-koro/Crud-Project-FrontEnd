@@ -21,7 +21,7 @@ export default function CategoryForm() {
                 alert("Category exists");
             }
             else {
-                history.push('/articles');
+                history.push('/categories');
             }
         });
     }
@@ -33,8 +33,8 @@ export default function CategoryForm() {
                 <form onSubmit={saveArticle}>
                     <div className="form-group">
                         <label htmlFor="name">Title</label>
-                        <input type="text" name="name" className="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name" maxLength="30" required/>
-                        <small id="nameHelp" className="form-text text-muted">Max 30 Characters</small>
+                        <input type="text" name="name" className="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name" maxLength="20" required/>
+                        <small id="nameHelp" className="form-text text-muted">Max 20 Characters</small>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>

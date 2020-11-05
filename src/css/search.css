@@ -1,0 +1,21 @@
+#suggestions {
+    background-color: white;
+    position: absolute;
+    top:55px;
+    width: 200px;
+}
+
+.suggestion:hover {
+    background-color: lightgray;
+}
+
+.suggestion {
+    margin-bottom: 0px;
+    border-left: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+}
+
+#searchDiv {
+    position: relative;
+}

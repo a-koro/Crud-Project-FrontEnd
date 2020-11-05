@@ -4,6 +4,9 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import ArticleList from './components/ArticleList';
 import ArticleForm from './components/ArticleForm';
 import CategoryForm from './components/CategoryForm';
+import CategoryList from './components/CategoryList';
+import { ResultsProvider } from './components/Navbar';
+import SearchResults from './components/SearchResults';
 
 function App() {
 
@@ -12,11 +15,15 @@ function App() {
       <BrowserRouter>
         <Navbar/>
         <Switch>
-          <Route exact path="/" component={ArticleList}/>
-          <Route path="/articles" component={ArticleList}/>
-          <Route path="/articleForm" component={ArticleForm}/>
-          <Route path="/categoryForm" component={CategoryForm}/>
-          <Route path="/admin"/>
+          <ResultsProvider>
+            <Route exact path="/" component={ArticleList}/>
+            <Route path="/articles" component={ArticleList}/>
+            <Route path="/categories" component={CategoryList}/>
+            <Route path="/articleForm" component={ArticleForm}/>
+            <Route path="/categoryForm" component={CategoryForm}/>
+            <Route path="/searchResults" component={SearchResults}/>
+            <Route path="/admin"/>
+          </ResultsProvider>
         </Switch>
       </BrowserRouter>
     </div>

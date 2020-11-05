@@ -42,7 +42,7 @@ export default function Article(props) {
         setEditable(false);
     }
 
-    function deletePost() {
+    function deleteArticle() {
 
         fetch('/api/deleteArticle', {
             method: "DELETE",
@@ -72,7 +72,7 @@ export default function Article(props) {
                     { !editable &&
                         <button type="button" className="btn btn-outline-warning mx-1" onClick={editArticle}>Edit</button>
                     }
-                    <button type="button" className="btn btn-outline-danger mx-1" onClick={deletePost}>Delete</button>
+                    <button type="button" className="btn btn-outline-danger mx-1" onClick={deleteArticle}>Delete</button>
                 </div>
             </div>
             <div className="card-body">
