@@ -42,12 +42,13 @@ export default function ArticleForm() {
                 <form onSubmit={saveArticle}>
                     <div className="form-group">
                         <label htmlFor="title">Title</label>
-                        <input type="text" name="title" className="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title" maxLength="60" required/>
+                        <input type="text" name="title" className="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title" minLength="2" maxLength="60" required/>
                         <small id="titleHelp" className="form-text text-muted">Max 60 Characters</small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="content">Content</label>
-                        <textarea className="form-control" id="content" name="content" rows="10" placeholder="Write article" required></textarea>
+                        <textarea className="form-control" id="content" name="content" rows="10" aria-describedby="contentHelp" placeholder="Write article" minLength="2" maxlength="1000" required></textarea>
+                        <small id="contentHelp" className="form-text text-muted">Max 1000 Characters</small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="category">Category</label>
@@ -60,10 +61,10 @@ export default function ArticleForm() {
                     </div>
                     <div className="form-group">
                         <label htmlFor="firstName">Author</label>
-                        <input className="form-control" type="text" placeholder="First name" name="firstName" id="firstName" required/>
+                        <input className="form-control" type="text" placeholder="First name" name="firstName" id="firstName" minLength="2" maxLength="20" required/>
                     </div>
                     <div className="form-group">
-                        <input className="form-control" type="text" placeholder="Last name" name="lastName" id="lastName" required/>
+                        <input className="form-control" type="text" placeholder="Last name" name="lastName" id="lastName" minLength="2" maxLength="20" required/>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                     <button type="reset" className="btn btn-secondary ml-2">Reset</button>

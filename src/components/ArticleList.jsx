@@ -29,12 +29,7 @@ export default function ArticleList() {
             fetchFromGetArticles();
         }
         else {
-            fetch('/api/getFilteredArticles', {
-                method: "GET",
-                headers: {
-                    category: evt.target.value
-                }
-            })
+            fetch('/api/getFilteredArticles?category=' + evt.target.value)
                 .then(response => response.json())
                 .then(data => {
                     setElements(data);

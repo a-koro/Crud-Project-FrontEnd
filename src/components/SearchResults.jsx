@@ -1,10 +1,18 @@
 import React from 'react';
 import { ResultsContext } from './Navbar';
 import Article from './Article';
+import { useHistory } from "react-router-dom";
 
 export default function SearchResults() {
 
     const [update, setUpdate] = React.useState(true);
+    const history = useHistory();
+
+    React.useEffect(() => {
+        if(!update) {
+            history.push('/articles');
+        }
+    },[update]);
 
     return (
         <div className="row">

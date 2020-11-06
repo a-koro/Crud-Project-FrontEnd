@@ -24,12 +24,8 @@ export default function Navbar() {
         setSearchValue(evt.target.value);
 
         if(evt.target.value.length > 1) {
-            fetch('/api/searchArticlesByTitle', {
-                method: "GET",
-                headers: {
-                    title: evt.target.value
-                }
-            }).then(response => response.json())
+            fetch('/api/searchArticlesByTitle?title=' + evt.target.value)
+            .then(response => response.json())
             .then(data => {
                 console.log(data);
                 setSuggestions(data);
@@ -42,12 +38,8 @@ export default function Navbar() {
     function getSpecificArticle(evt) {
         setSearchValue("");
         
-        fetch('/api/getSpecificArticle', {
-            method: "GET",
-            headers: {
-                id: evt.target.id
-            }
-        }).then(response => response.json())
+        fetch('/api/getSpecificArticle?id=' + evt.target.id)
+        .then(response => response.json())
         .then(data => {
             result = data;
             history.push('/searchResults');
@@ -89,7 +81,7 @@ export default function Navbar() {
                     <input className="form-control mr-sm-2" name="title" type="search" placeholder="Search Articles" aria-label="Search" value={searchValue} onChange={searchArticlesByTitle}/>
                     <div id="suggestions">
                         {suggestions.map((suggestion) => (
-                            <p class="suggestion" id={suggestion._id} key={suggestion._id} onClick={getSpecificArticle}>{suggestion.title}</p>
+                            <p className="suggestion" id={suggestion._id} key={suggestion._id} onClick={getSpecificArticle}>{suggestion.title}</p>
                         ))}
                     </div>
                 </form>

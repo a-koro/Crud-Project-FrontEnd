@@ -13,16 +13,6 @@ export default function Article(props) {
 
     function editArticle() {
 
-        // fetch('/api/editArticle', {
-        //     method: "POST",
-        //     headers: {
-        //         id: props.articleId
-        //     }
-        // }).then(response => response.json())
-        // .then(data => {
-        //     console.log(data);
-        // });
-
         setEditable(true);
     }
 
