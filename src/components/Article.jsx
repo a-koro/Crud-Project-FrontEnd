@@ -21,9 +21,12 @@ export default function Article(props) {
         fetch('/api/updateArticle', {
             method: "POST",
             headers: {
-                id: props.articleId,
-                content: content
-            }
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'id': props.articleId,
+                'content': content
+            })
         })
         .then(response => response.json())
         .then(data => {

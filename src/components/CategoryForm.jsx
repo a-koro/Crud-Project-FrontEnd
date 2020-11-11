@@ -12,8 +12,11 @@ export default function CategoryForm() {
         fetch('/api/addCategory', {
             method: "POST",
             headers: {
-                name: evt.target.name.value
-            }
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'name': evt.target.name.value
+            })
         })
         .then(response => response.json())
         .then(data => {

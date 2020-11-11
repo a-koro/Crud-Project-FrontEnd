@@ -19,12 +19,15 @@ export default function ArticleForm() {
         fetch('/api/addArticle', {
             method: "POST",
             headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
                 "title": evt.target.title.value,
                 "content": evt.target.content.value,
                 "category": evt.target.category.value,
                 "firstName": evt.target.firstName.value,
                 "lastName": evt.target.lastName.value
-            }
+            })
         }).then(response => response.json())
         .then(data => {
             history.push('/articles');
