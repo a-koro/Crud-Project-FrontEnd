@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import "../css/search.css";
+import UserContext from '../context/UserContext';
 
 let result = [];
 
@@ -16,6 +17,8 @@ export const ResultsProvider = (props) => {
 
 export default function Navbar() {
 
+    const { userData, setUserData } = React.useContext(UserContext);
+
     const [suggestions, setSuggestions] = React.useState([]);
     const [searchValue, setSearchValue] = React.useState("");
     const history = useHistory();
@@ -23,13 +26,13 @@ export default function Navbar() {
     function searchArticlesByTitle(evt) {
         setSearchValue(evt.target.value);
 
-        if(evt.target.value.length > 1) {
+        if (evt.target.value.length > 1) {
             fetch('/api/searchArticlesByTitle?title=' + evt.target.value)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setSuggestions(data);
-            });
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    setSuggestions(data);
+                });
         } else {
             setSuggestions([]);
         }
@@ -37,18 +40,26 @@ export default function Navbar() {
 
     function getSpecificArticle(evt) {
         setSearchValue("");
-        
+
         fetch('/api/getSpecificArticle?id=' + evt.target.id)
-        .then(response => response.json())
-        .then(data => {
-            result = data;
-            history.push('/searchResults');
-        });
+            .then(response => response.json())
+            .then(data => {
+                result = data;
+                history.push('/searchResults');
+            });
         setSuggestions([]);
     }
 
     function formSubmit(evt) {
         evt.preventDefault();
+    }
+
+    function logout() {
+        setUserData({
+            token: undefined,
+            user: undefined
+        });
+        localStorage.setItem("auth-token", "");
     }
 
     return (
@@ -77,15 +88,31 @@ export default function Navbar() {
                     </li>
                 </ul>
                 <div className="searchDiv">
-                <form className="form-inline my-2 my-lg-0" onSubmit={formSubmit}>
-                    <input className="form-control mr-sm-2" name="title" type="search" placeholder="Search Articles" aria-label="Search" value={searchValue} onChange={searchArticlesByTitle}/>
-                    <div id="suggestions">
-                        {suggestions.map((suggestion) => (
-                            <p className="suggestion" id={suggestion._id} key={suggestion._id} onClick={getSpecificArticle}>{suggestion.title}</p>
-                        ))}
-                    </div>
-                </form>
+                    <form className="form-inline my-2 my-lg-0" onSubmit={formSubmit}>
+                        <input className="form-control mr-sm-2" name="title" type="search" placeholder="Search Articles" aria-label="Search" value={searchValue} onChange={searchArticlesByTitle} />
+                        <div id="suggestions">
+                            {suggestions.map((suggestion) => (
+                                <p className="suggestion" id={suggestion._id} key={suggestion._id} onClick={getSpecificArticle}>{suggestion.title}</p>
+                            ))}
+                        </div>
+                    </form>
                 </div>
+                <ul className="navbar-nav mr-0">
+                    {
+                        userData.user ?
+                            <li className="nav-item">
+                                <Link to="/" onClick={logout} className="nav-link">Logout</Link>
+                            </li> :
+                            (<>
+                                <li className="nav-item">
+                                    <Link to="/register" className="nav-link">Register</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/categories" className="nav-link">Login</Link>
+                                </li>
+                            </>)
+                    }
+                </ul>
             </div>
         </nav>
     );

@@ -69,7 +69,7 @@ export default function ArticleForm() {
                     <div className="form-group">
                         <input className="form-control" type="text" placeholder="Last name" name="lastName" id="lastName" minLength="2" maxLength="20" required/>
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary">Publish</button>
                     <button type="reset" className="btn btn-secondary ml-2">Reset</button>
                 </form>
             </div>
