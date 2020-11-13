@@ -1,6 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import Error from './Error';
 
 export default function Register() {
 
@@ -11,30 +12,45 @@ export default function Register() {
     const [passwordCheck, setPasswordCheck] = React.useState();
     const [firstName, setFirstName] = React.useState();
     const [lastName, setLastName] = React.useState();
+    const [error, setError] = React.useState();
 
     const registerUser = async (evt) => {
         evt.preventDefault();
-        const userToRegister = {email,password,passwordCheck,firstName,lastName};
-        const registerResponse = await Axios.post(
-            '/api/register',
-            userToRegister
-        );
+        try {
+            if(!(password == passwordCheck)) {
+                alert("password hasn't been confirmed");
+            } else {
+                const userToRegister = {email,password,passwordCheck,firstName,lastName};
+                const registerResponse = await Axios.post(
+                    '/api/register',
+                    userToRegister
+                );
+                history.push('/');
+            }
+        } catch (err) {
+            if(err.response.data.msg)
+                setError(err.response.data.msg);
+        }
     }
 
     return (
         <div className="row">
             <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0">
-                <h3>Register</h3>
+                <h3 className="text-center">Register</h3>
                 <form onSubmit={registerUser}>
+                    { error && 
+                        <Error message={error} clearError={() => setError(undefined)}/>
+                    }
                     <div className="form-group">
                         <label htmlFor="email">email</label>
                         <input type="email" onChange={(evt) => {setEmail(evt.target.value)}} name="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required />
                         <small id="emailHelp" className="form-text text-muted"></small>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="content">Password</label>
+                        <label htmlFor="password">Password</label>
                         <input type="password" onChange={(evt) => {setPassword(evt.target.value)}} name="password" className="form-control" id="password" aria-describedby="passHelp" placeholder="Enter password" required />
                         <small id="passHelp" className="form-text text-muted"></small>
+                        <label htmlFor="passwordCheck">Verify Password</label>
                         <input type="password" onChange={(evt) => {setPasswordCheck(evt.target.value)}} name="passwordCheck" className="form-control" id="passwordCheck" aria-describedby="passCheckHelp" placeholder="Verify password" required />
                         <small id="passCheckHelp" className="form-text text-muted"></small>
                     </div>

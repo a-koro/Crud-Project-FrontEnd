@@ -32,7 +32,7 @@ export default function CategoryForm() {
     return (
         <div className="row">
             <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0">
-                <h3>Add Category</h3>
+                <h3 className="text-center">Add Category</h3>
                 <form onSubmit={saveArticle}>
                     <div className="form-group">
                         <label htmlFor="name">Title</label>

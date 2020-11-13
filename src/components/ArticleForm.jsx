@@ -41,7 +41,7 @@ export default function ArticleForm() {
     return (
         <div className="row">
             <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0">
-                <h3>Add Article</h3>
+                <h3 className="text-center">Add Article</h3>
                 <form onSubmit={saveArticle}>
                     <div className="form-group">
                         <label htmlFor="title">Title</label>

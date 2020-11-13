@@ -11,6 +11,7 @@ import SearchResults from './components/SearchResults';
 import UserContext from './context/UserContext';
 import Axios from 'axios';
 import Register from './components/Register';
+import Login from './components/Login';
 
 function App() {
 
@@ -64,6 +65,7 @@ function App() {
               <Route path="/categoryForm" component={CategoryForm}/>
               <Route path="/searchResults" component={SearchResults}/>
               <Route path="/register" component={Register}/>
+              <Route path="/login" component={Login}/>
               <Route path="/admin"/>
             </ResultsProvider>
           </Switch>

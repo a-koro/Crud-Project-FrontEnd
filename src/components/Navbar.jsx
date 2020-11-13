@@ -77,6 +77,11 @@ export default function Navbar() {
                     <li className="nav-item">
                         <Link to="/categories" className="nav-link">Categories</Link>
                     </li>
+                    {userData.user &&
+                        <li className="nav-item">
+                            <Link to="/articles" className="nav-link">My Articles</Link>
+                        </li>
+                    }
                     <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Create
@@ -108,7 +113,7 @@ export default function Navbar() {
                                     <Link to="/register" className="nav-link">Register</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/categories" className="nav-link">Login</Link>
+                                    <Link to="/login" className="nav-link">Login</Link>
                                 </li>
                             </>)
                     }
