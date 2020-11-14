@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
+import UserContext from '../context/UserContext';
 
 export default function ArticleForm() {
 
     const [categories, setCategories] = useState([]);
     const history = useHistory();
+
+    const { userData } = React.useContext(UserContext);
 
     function getCategories() {
         fetch("/api/getCategories")
@@ -19,6 +22,7 @@ export default function ArticleForm() {
         fetch('/api/addArticle', {
             method: "POST",
             headers: {
+                'x-auth-token': userData.token,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -45,12 +49,12 @@ export default function ArticleForm() {
                 <form onSubmit={saveArticle}>
                     <div className="form-group">
                         <label htmlFor="title">Title</label>
-                        <input type="text" name="title" className="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title" minLength="2" maxLength="60" required/>
-                        <small id="titleHelp" className="form-text text-muted">Max 60 Characters</small>
+                        <input type="text" name="title" className="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title" minLength="2" maxLength="80" required/>
+                        <small id="titleHelp" className="form-text text-muted">Max 80 Characters</small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="content">Content</label>
-                        <textarea className="form-control" id="content" name="content" rows="10" aria-describedby="contentHelp" placeholder="Write article" minLength="2" maxlength="1000" required></textarea>
+                        <textarea className="form-control" id="content" name="content" rows="10" aria-describedby="contentHelp" placeholder="Write article" minLength="2" maxLength="1000" required></textarea>
                         <small id="contentHelp" className="form-text text-muted">Max 1000 Characters</small>
                     </div>
                     <div className="form-group">

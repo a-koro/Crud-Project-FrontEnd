@@ -79,7 +79,7 @@ export default function Navbar() {
                     </li>
                     {userData.user &&
                         <li className="nav-item">
-                            <Link to="/articles" className="nav-link">My Articles</Link>
+                            <Link to="/myArticles" className="nav-link">My Articles</Link>
                         </li>
                     }
                     <li className="nav-item dropdown">

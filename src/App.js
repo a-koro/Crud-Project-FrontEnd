@@ -12,6 +12,7 @@ import UserContext from './context/UserContext';
 import Axios from 'axios';
 import Register from './components/Register';
 import Login from './components/Login';
+import MyArticles from './components/MyArticles';
 
 function App() {
 
@@ -61,6 +62,7 @@ function App() {
               <Route exact path="/" component={ArticleList}/>
               <Route path="/articles" component={ArticleList}/>
               <Route path="/categories" component={CategoryList}/>
+              <Route path="/myArticles" component={MyArticles}/>
               <Route path="/articleForm" component={ArticleForm}/>
               <Route path="/categoryForm" component={CategoryForm}/>
               <Route path="/searchResults" component={SearchResults}/>
