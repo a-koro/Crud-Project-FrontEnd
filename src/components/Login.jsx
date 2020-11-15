@@ -33,7 +33,6 @@ export default function Login() {
       };
 
     return (
-        <div className="row">
             <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0">
                 <h3 className="text-center">Login</h3>
                 <form onSubmit={loginUser}>
@@ -65,6 +64,5 @@ export default function Login() {
                     <button type="submit" className="btn btn-primary">Login</button>
                 </form>
             </div>
-        </div>
     );
 }

@@ -30,7 +30,6 @@ export default function CategoryForm() {
     }
 
     return (
-        <div className="row">
             <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0">
                 <h3 className="text-center">Add Category</h3>
                 <form onSubmit={saveArticle}>
@@ -42,6 +41,5 @@ export default function CategoryForm() {
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
-        </div>
     );
 }

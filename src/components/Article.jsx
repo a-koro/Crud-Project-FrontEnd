@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import Axios from 'axios';
+import UserContext from '../context/UserContext';
 
 export default function Article(props) {
 
     const [dateTime, setDateTime] = useState(new Date());
     const [editable, setEditable] = useState(false);
     const [content, setContent] = useState(props.content);
+    const {userData} = React.useContext(UserContext);
 
     function convertDateTime() {
         let timeStamp = props.articleId.toString().substring(0, 8);
@@ -16,37 +19,43 @@ export default function Article(props) {
         setEditable(true);
     }
 
-    function updateArticle(evt) {
+    async function updateArticle(evt) {
 
-        fetch('/api/updateArticle', {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                'id': props.articleId,
-                'content': content
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        });
-        setEditable(false);
+        try {
+            const updatedArticle = await Axios.post(
+                '/api/updateArticle',
+                {
+                    'id': props.articleId,
+                    'content': content
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth-token': userData.token
+                    }
+                }
+            );
+            setEditable(false);
+        } catch(err) {
+            console.log(err.response.data.msg);
+        }
     }
 
-    function deleteArticle() {
-
-        fetch('/api/deleteArticle', {
-            method: "DELETE",
-            headers: {
-                id: props.articleId
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
+    async function deleteArticle() {
+        try {
+            await Axios.delete(
+                '/api/deleteArticle',
+                {
+                    headers: {
+                        id: props.articleId,
+                        'x-auth-token': userData.token
+                    }
+                }
+            );
             props.update.setUpdate(!props.update.update);
-        });
+        } catch(err) {
+            console.log(err.response.data.msg);
+        }
     };
 
     React.useEffect(() => {
@@ -57,28 +66,33 @@ export default function Article(props) {
         <div className="card mt-2">
             <div className="card-header">
                 <div className="float-left"><h5 className="mt-2">{props.title}</h5></div>
-                <div className="float-right">
-                    <span className="mr-2">Category: {props.category}</span>
-                    { editable &&
-                        <button type="button" className="btn btn-outline-warning mx-1" onClick={updateArticle}>Update</button>
-                    }
-                    { !editable &&
-                        <button type="button" className="btn btn-outline-warning mx-1" onClick={editArticle}>Edit</button>
-                    }
-                    <button type="button" className="btn btn-outline-danger mx-1" onClick={deleteArticle}>Delete</button>
-                </div>
+                { ( (userData.user) && (userData.user.id == props.userId)) &&
+                    <div className="float-right">
+                        <span className="mr-2">Category: {props.category}</span>
+                        { editable &&
+                            <button type="button" className="btn btn-outline-warning mx-1" onClick={updateArticle}>Update</button>
+                        }
+                        { !editable &&
+                            <button type="button" className="btn btn-outline-warning mx-1" onClick={editArticle}>Edit</button>
+                        }
+                        <button type="button" className="btn btn-outline-danger mx-1" onClick={deleteArticle}>Delete</button>
+                    </div>
+                }
             </div>
             <div className="card-body">
                 <blockquote className="blockquote mb-0">
                     { editable &&
                     <div className="input-group">
-                        <textarea type="text" className="form-control" value={content} onChange={evt => setContent(evt.target.value)}></textarea>
+                        <textarea type="text" className="form-control" rows="20" minLength="2" maxLength="4000" value={content} onChange={evt => setContent(evt.target.value)}></textarea>
                     </div>
                     }
                     { !editable &&
-                        <p>{content}</p>
+                        <p style={{'whiteSpace':'pre-wrap'}}>{content}</p>
                     }
-                    <footer className="blockquote-footer">{props.author + " " + dateTime.toLocaleTimeString("en-UK") + " " + dateTime.toLocaleDateString("en-UK")}</footer>
+                    <div>
+                        <span className="float-left"><small># {props.firstName + " " + props.lastName}</small></span>
+                        <span className="float-right"><small>{dateTime.toLocaleTimeString("en-UK") + " " + dateTime.toLocaleDateString("en-UK")}</small></span>
+                    </div>
                 </blockquote>
             </div>
         </div>

@@ -43,7 +43,6 @@ export default function MyArticles() {
     }, []);
 
     return (
-        <div className="row">
             <div className="col-md-6 col-xs-12 offset-md-3 offset-xs-0">
                 <select className="form-control form-control-sm col-2">
                     <option value="">Filter by</option>
@@ -51,16 +50,6 @@ export default function MyArticles() {
                         return <option value={category._id} key={category._id}>{category.name}</option>
                     })}
                 </select>
-                {elements.map((element) => {
-                    return <Article
-                        key={element._id}
-                        title={element.title}
-                        content={element.content}
-                        author={element.authorFirstName + " " + element.authorLastName}
-                        articleId={element._id}
-                        category={element.category.name}
-                        update={{ update: update, setUpdate: setUpdate }} />
-                })}
                 {elements.map((element) => {
                     return <PrevArticle
                         key={element._id}
@@ -71,6 +60,5 @@ export default function MyArticles() {
                         category={element.category.name}/>
                 })}
             </div>
-        </div>
     );
 }

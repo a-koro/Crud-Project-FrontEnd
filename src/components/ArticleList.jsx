@@ -46,7 +46,6 @@ export default function ArticleList() {
     }, []);
 
     return (
-        <div className="row">
             <div className="col-md-6 col-xs-12 offset-md-3 offset-xs-0">
                 <select className="form-control form-control-sm col-2" onChange={getFilteredArticles}>
                     <option value="">Filter by</option>
@@ -59,12 +58,13 @@ export default function ArticleList() {
                         key={element._id}
                         title={element.title}
                         content={element.content}
-                        author={element.authorFirstName + " " + element.authorLastName}
+                        userId={element.user._id}
+                        firstName={element.user.firstName}
+                        lastName={element.user.lastName}
                         articleId={element._id}
                         category={element.category.name}
                         update={{ update: update, setUpdate: setUpdate }} />
                 })}
             </div>
-        </div>
     );
 }

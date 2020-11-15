@@ -3,21 +3,13 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import "../css/search.css";
 import UserContext from '../context/UserContext';
-
-let result = [];
-
-export const ResultsContext = React.createContext({});
-export const ResultsProvider = (props) => {
-    return (
-        <ResultsContext.Provider value={result}>
-            {props.children}
-        </ResultsContext.Provider>
-    );
-};
+import SearchContext from '../context/SearchContext';
 
 export default function Navbar() {
 
     const { userData, setUserData } = React.useContext(UserContext);
+    const { searchData, setSearchData } = React.useContext(SearchContext);
+
 
     const [suggestions, setSuggestions] = React.useState([]);
     const [searchValue, setSearchValue] = React.useState("");
@@ -44,7 +36,7 @@ export default function Navbar() {
         fetch('/api/getSpecificArticle?id=' + evt.target.id)
             .then(response => response.json())
             .then(data => {
-                result = data;
+                setSearchData(data);
                 history.push('/searchResults');
             });
         setSuggestions([]);

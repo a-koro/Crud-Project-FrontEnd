@@ -43,7 +43,6 @@ export default function ArticleForm() {
     }, []);
 
     return (
-        <div className="row">
             <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0">
                 <h3 className="text-center">Add Article</h3>
                 <form onSubmit={saveArticle}>
@@ -54,7 +53,7 @@ export default function ArticleForm() {
                     </div>
                     <div className="form-group">
                         <label htmlFor="content">Content</label>
-                        <textarea className="form-control" id="content" name="content" rows="10" aria-describedby="contentHelp" placeholder="Write article" minLength="2" maxLength="1000" required></textarea>
+                        <textarea className="form-control" id="content" name="content" rows="10" aria-describedby="contentHelp" placeholder="Write article" minLength="2" maxLength="4000" required></textarea>
                         <small id="contentHelp" className="form-text text-muted">Max 1000 Characters</small>
                     </div>
                     <div className="form-group">
@@ -77,6 +76,5 @@ export default function ArticleForm() {
                     <button type="reset" className="btn btn-secondary ml-2">Reset</button>
                 </form>
             </div>
-        </div>
     );
 }

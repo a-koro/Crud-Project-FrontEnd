@@ -19,7 +19,6 @@ export default function CategoryList() {
     },[update]);
 
     return (
-        <div className="row">
             <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0">
                 {categories.map((element) => {
                     return <Category
@@ -29,6 +28,5 @@ export default function CategoryList() {
                         update={{ update: update, setUpdate: setUpdate }} />
                 })}
             </div>
-        </div>
     );
 }

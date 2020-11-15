@@ -34,7 +34,6 @@ export default function Register() {
     }
 
     return (
-        <div className="row">
             <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0">
                 <h3 className="text-center">Register</h3>
                 <form onSubmit={registerUser}>
@@ -61,7 +60,6 @@ export default function Register() {
                     </div>
                     <button type="submit" className="btn btn-primary">Register</button>
                 </form>
-            </div>
         </div>
     );
 }
