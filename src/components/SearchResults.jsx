@@ -1,5 +1,4 @@
 import React from 'react';
-import { ResultsContext } from './Navbar';
 import Article from './Article';
 import { useHistory } from "react-router-dom";
 import SearchContext from '../context/SearchContext';

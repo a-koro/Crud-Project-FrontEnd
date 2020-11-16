@@ -4,11 +4,12 @@ import { useHistory } from "react-router-dom";
 import "../css/search.css";
 import UserContext from '../context/UserContext';
 import SearchContext from '../context/SearchContext';
+import logo from '../articlomatic.png';
 
 export default function Navbar() {
 
     const { userData, setUserData } = React.useContext(UserContext);
-    const { searchData, setSearchData } = React.useContext(SearchContext);
+    const { setSearchData } = React.useContext(SearchContext);
 
 
     const [suggestions, setSuggestions] = React.useState([]);
@@ -56,7 +57,7 @@ export default function Navbar() {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4">
-            <Link className="navbar-brand" to='/'>Articl-o-matic</Link>
+            <Link className="navbar-brand" to='/'><img src={logo} height='35'/></Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>

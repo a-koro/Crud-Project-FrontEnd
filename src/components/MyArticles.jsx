@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Article from './Article';
 import Axios from 'axios';
 import UserContext from '../context/UserContext';
 import PrevArticle from './PrevArticle';
@@ -7,7 +6,6 @@ import PrevArticle from './PrevArticle';
 export default function MyArticles() {
 
     const [elements, setElements] = useState([]);
-    const [update, setUpdate] = useState(true);
     const [categories, setCategories] = useState([]);
 
     const {userData} = React.useContext(UserContext);
@@ -37,6 +35,24 @@ export default function MyArticles() {
             });
     }
 
+    function getFilteredArticles(evt) {
+        if (!evt.target.value) {
+            fetchMyArticles();
+        }
+        else {
+            fetch('/api/getUsersFilteredArticles?category=' + evt.target.value, {
+                method: "POST",
+                headers: {
+                    'x-auth-token': userData.token
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    setElements(data);
+                });
+        }
+    }
+
     useEffect(() => {
         getCategories();
         fetchMyArticles();
@@ -44,7 +60,7 @@ export default function MyArticles() {
 
     return (
             <div className="col-md-6 col-xs-12 offset-md-3 offset-xs-0">
-                <select className="form-control form-control-sm col-2">
+                <select className="form-control form-control-sm col-2" onChange={getFilteredArticles}>
                     <option value="">Filter by</option>
                     {categories.map((category) => {
                         return <option value={category._id} key={category._id}>{category.name}</option>

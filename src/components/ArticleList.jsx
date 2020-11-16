@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Article from './Article';
+import PrevArticle from './PrevArticle';
 
 export default function ArticleList() {
 
@@ -53,7 +54,7 @@ export default function ArticleList() {
                         return <option value={category._id} key={category._id}>{category.name}</option>
                     })}
                 </select>
-                {elements.map((element) => {
+                {/* {elements.map((element) => {
                     return <Article
                         key={element._id}
                         title={element.title}
@@ -64,6 +65,15 @@ export default function ArticleList() {
                         articleId={element._id}
                         category={element.category.name}
                         update={{ update: update, setUpdate: setUpdate }} />
+                })} */}
+                {elements.map((element) => {
+                    return <PrevArticle
+                        key={element._id}
+                        title={element.title}
+                        firstName={element.user.firstName}
+                        lastName={element.user.lastName}
+                        articleId={element._id}
+                        category={element.category.name}/>
                 })}
             </div>
     );

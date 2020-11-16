@@ -34,8 +34,8 @@ export default function PrevArticle(props) {
     }, []);
 
     return (
-        <div class="card p-1 mt-2 prevArticle" onClick={selectArticle}>
-            <div class="mb-0 card-body">
+        <div className="card p-1 mt-2 prevArticle" onClick={selectArticle}>
+            <div className="mb-0 card-body">
                 <h3 className="mb-4">{props.title}</h3>
                 <div>
                     <span className="float-left"># {props.firstName + " " + props.lastName}</span>
