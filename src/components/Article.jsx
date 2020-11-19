@@ -66,7 +66,7 @@ export default function Article(props) {
         <div className="card mt-2">
             <div className="card-header">
                 <div className="float-left"><h5 className="mt-2">{props.title}</h5></div>
-                { ( (userData.user) && (userData.user.id == props.userId)) &&
+                { ( (userData.user) && ((userData.user.id == props.userId) || (userData.user.role === "admin"))) &&
                     <div className="float-right">
                         <span className="mr-2">Category: {props.category}</span>
                         { editable &&

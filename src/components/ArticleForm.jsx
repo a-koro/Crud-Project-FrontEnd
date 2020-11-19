@@ -28,9 +28,7 @@ export default function ArticleForm() {
             body: JSON.stringify({
                 "title": evt.target.title.value,
                 "content": evt.target.content.value,
-                "category": evt.target.category.value,
-                "firstName": evt.target.firstName.value,
-                "lastName": evt.target.lastName.value
+                "category": evt.target.category.value
             })
         }).then(response => response.json())
         .then(data => {
@@ -64,13 +62,6 @@ export default function ArticleForm() {
                                 return <option value={category._id} key={category._id}>{category.name}</option>
                             })}
                         </select>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="firstName">Author</label>
-                        <input className="form-control" type="text" placeholder="First name" name="firstName" id="firstName" minLength="2" maxLength="20" required/>
-                    </div>
-                    <div className="form-group">
-                        <input className="form-control" type="text" placeholder="Last name" name="lastName" id="lastName" minLength="2" maxLength="20" required/>
                     </div>
                     <button type="submit" className="btn btn-primary">Publish</button>
                     <button type="reset" className="btn btn-secondary ml-2">Reset</button>

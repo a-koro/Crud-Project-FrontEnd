@@ -25,29 +25,30 @@ function App() {
   React.useEffect(() => {
     const checkUserLoggedIn = async () => {
       let token = localStorage.getItem('auth-token');
-      if (token === null) {
+      if (token === null || token === "") {
         localStorage.setItem("auth-token", "");
         token = "";
-      }
-      const tokenValid = await Axios.post('/api/tokenIsValid',
-        null,
-        {
-          headers: {
-            "x-auth-token": token
-          }
-        });
-      if (tokenValid) {
-        const loggedInUser = await Axios.get(
-          "/api/getLoggedInUser",
+      } else {
+        const tokenValid = await Axios.post('/api/tokenIsValid',
+          null,
           {
             headers: {
               "x-auth-token": token
             }
           });
-        setUserData({
-          token: token,
-          user: loggedInUser.data
-        });
+        if (tokenValid) {
+          const loggedInUser = await Axios.get(
+            "/api/getLoggedInUser",
+            {
+              headers: {
+                "x-auth-token": token
+              }
+            });
+          setUserData({
+            token: token,
+            user: loggedInUser.data
+          });
+        }
       }
     }
     checkUserLoggedIn();

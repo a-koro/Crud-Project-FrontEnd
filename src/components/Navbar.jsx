@@ -23,7 +23,6 @@ export default function Navbar() {
             fetch('/api/searchArticlesByTitle?title=' + evt.target.value)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
                     setSuggestions(data);
                 });
         } else {
@@ -70,20 +69,21 @@ export default function Navbar() {
                     <li className="nav-item">
                         <Link to="/categories" className="nav-link">Categories</Link>
                     </li>
-                    {userData.user &&
+                    {(userData.user && (userData.user.role === "user")) &&
+                        <>
+                            <li className="nav-item">
+                                <Link to="/myArticles" className="nav-link">My Articles</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/articleForm" className="nav-link">Create Article</Link>
+                            </li>
+                        </>
+                    }
+                    {(userData.user && (userData.user.role === "admin")) &&
                         <li className="nav-item">
-                            <Link to="/myArticles" className="nav-link">My Articles</Link>
+                            <Link to="/categoryForm" className="nav-link">Create Category</Link>
                         </li>
                     }
-                    <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Create
-                        </a>
-                        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <Link to="/categoryForm" className="dropdown-item">Category</Link>
-                            <Link to="/articleForm" className="dropdown-item">Article</Link>
-                        </div>
-                    </li>
                 </ul>
                 <div className="searchDiv">
                     <form className="form-inline my-2 my-lg-0" onSubmit={formSubmit}>

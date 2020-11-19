@@ -1,8 +1,10 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
+import UserContext from '../context/UserContext';
 
 export default function CategoryForm() {
 
+    const {userData} = React.useContext(UserContext);
     const history = useHistory();
 
     function saveArticle(evt) {
@@ -12,7 +14,8 @@ export default function CategoryForm() {
         fetch('/api/addCategory', {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-auth-token': userData.token
             },
             body: JSON.stringify({
                 'name': evt.target.name.value
@@ -26,6 +29,8 @@ export default function CategoryForm() {
             else {
                 history.push('/categories');
             }
+        }).catch(err => {
+            console.log(err.response.data.msg);
         });
     }
 
