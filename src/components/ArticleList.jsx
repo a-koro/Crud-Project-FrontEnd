@@ -9,7 +9,7 @@ export default function ArticleList() {
     const [categories, setCategories] = useState([]);
 
     function fetchFromGetArticles() {
-        fetch("https://mern-articlomaric-app.herokuapp.com/api/getArticles")
+        fetch("/api/getArticles")
             .then(response => response.json())
             .then((data) => {
                 setElements(data);
