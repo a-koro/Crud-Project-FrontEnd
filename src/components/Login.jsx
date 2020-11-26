@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import Error from './Error';
+import logo from '../articlomatic.png';
 
 export default function Login() {
 
@@ -34,7 +35,8 @@ export default function Login() {
 
     return (
             <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0">
-                <h3 className="text-center">Login</h3>
+                <img src={logo} class="img-fluid mb-2" alt="Responsive image"></img>
+                <h3 className="text">Login</h3>
                 <form onSubmit={loginUser}>
                     { error &&
                         <Error message={error} clearError={() => setError(undefined)}/>
