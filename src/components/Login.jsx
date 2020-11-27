@@ -35,7 +35,7 @@ export default function Login() {
 
     return (
             <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0">
-                <img src={logo} class="img-fluid mb-2" alt="Responsive image"></img>
+                <img src={logo} className="img-fluid mb-2" alt="Logo"></img>
                 <h3 className="text">Login</h3>
                 <form onSubmit={loginUser}>
                     { error &&

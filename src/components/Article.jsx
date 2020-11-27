@@ -22,7 +22,7 @@ export default function Article(props) {
     async function updateArticle(evt) {
 
         try {
-            const updatedArticle = await Axios.post(
+            await Axios.post(
                 '/api/updateArticle',
                 {
                     'id': props.articleId,
