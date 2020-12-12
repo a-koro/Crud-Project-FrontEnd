@@ -6,11 +6,11 @@ export default function Article(props) {
 
     const [dateTime, setDateTime] = useState(new Date());
     const [editable, setEditable] = useState(false);
-    const [content, setContent] = useState(props.content);
+    const [content, setContent] = useState(props.article.content);
     const {userData} = React.useContext(UserContext);
 
     function convertDateTime() {
-        let timeStamp = props.articleId.toString().substring(0, 8);
+        let timeStamp = props.article._id.toString().substring(0, 8);
         setDateTime(new Date(parseInt(timeStamp, 16) * 1000));
     }
 
@@ -25,7 +25,7 @@ export default function Article(props) {
             await Axios.post(
                 '/api/updateArticle',
                 {
-                    'id': props.articleId,
+                    'id': props.article._id,
                     'content': content
                 },
                 {
@@ -65,10 +65,10 @@ export default function Article(props) {
     return (
         <div className="card mt-2">
             <div className="card-header">
-                <div className="float-left"><h5 className="mt-2">{props.title}</h5></div>
-                { ( (userData.user) && ((userData.user.id == props.userId) || (userData.user.role === "admin"))) &&
+                <div className="float-left"><h1 className="mt-2 font-italic">{props.article.title}</h1></div>
+                { ( (userData.user) && ((userData.user.id == props.article.user._id) || (userData.user.role === "admin"))) &&
                     <div className="float-right">
-                        <span className="mr-2">Category: {props.category}</span>
+                        <span className="mr-2">Category: {props.article.category.name}</span>
                         { editable &&
                             <button type="button" className="btn btn-outline-warning mx-1" onClick={updateArticle}>Update</button>
                         }
@@ -80,6 +80,9 @@ export default function Article(props) {
                 }
             </div>
             <div className="card-body">
+                { props.article.image &&
+                    <img className="card-img-top" src={"/api/articleImage?articleId=" + props.article._id} alt="Article Image"/>
+                }
                 <blockquote className="blockquote mb-0">
                     { editable &&
                     <div className="input-group">
@@ -87,10 +90,10 @@ export default function Article(props) {
                     </div>
                     }
                     { !editable &&
-                        <p style={{'whiteSpace':'pre-wrap'}}>{content}</p>
+                        <p style={{'whiteSpace':'pre-wrap'}} className="font-italic">{content}</p>
                     }
                     <div>
-                        <span className="float-left"><small># {props.firstName + " " + props.lastName}</small></span>
+                        <span className="float-left"><small># {props.article.user.firstName + " " + props.article.user.lastName}</small></span>
                         <span className="float-right"><small>{dateTime.toLocaleTimeString("en-UK") + " " + dateTime.toLocaleDateString("en-UK")}</small></span>
                     </div>
                 </blockquote>

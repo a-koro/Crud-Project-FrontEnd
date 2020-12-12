@@ -17,18 +17,12 @@ export default function SearchResults() {
     }, [update]);
 
     return (
-        <div className="col-md-6 col-xs-12 offset-md-3 offset-xs-0">
+        <div className="col-md-8 col-xs-12 offset-md-2 offset-xs-0">
             {searchData.map((element) => {
                 return <Article
                     key={element._id}
-                    title={element.title}
-                    content={element.content}
-                    userId={element.user._id}
-                    firstName={element.user.firstName}
-                    lastName={element.user.lastName}
-                    articleId={element._id}
-                    category={element.category.name}
-                    update={{ update: update, setUpdate: setUpdate }} />
+                    update={{ update: update, setUpdate: setUpdate }} 
+                    article={element}/>
             })}
         </div>
     );

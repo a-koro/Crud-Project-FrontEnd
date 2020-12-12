@@ -55,7 +55,7 @@ function App() {
   }, []);
 
   return (
-    <div className="container-fluid p-0">
+    <div className="container p-0">
       <BrowserRouter>
         <UserContext.Provider value={{ userData, setUserData }}>
           <SearchContext.Provider value={{ searchData, setSearchData }}>
