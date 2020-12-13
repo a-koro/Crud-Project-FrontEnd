@@ -47,7 +47,7 @@ export default function Article(props) {
                 '/api/deleteArticle',
                 {
                     headers: {
-                        id: props.articleId,
+                        id: props.article._id,
                         'x-auth-token': userData.token
                     }
                 }

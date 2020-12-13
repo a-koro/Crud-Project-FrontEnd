@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import Error from './Error';
 import logo from '../articlomatic.png';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
 
@@ -34,7 +35,7 @@ export default function Login() {
       };
 
     return (
-            <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0">
+            <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0 mt-5">
                 <img src={logo} className="img-fluid mb-2" alt="Logo"></img>
                 <h3 className="text">Login</h3>
                 <form onSubmit={loginUser}>
@@ -64,6 +65,7 @@ export default function Login() {
                             required />
                     </div>
                     <button type="submit" className="btn btn-primary">Login</button>
+                    <Link to="/register" className="float-right mt-3"><small>I don't have an Articl-O-matic account</small></Link>
                 </form>
             </div>
     );

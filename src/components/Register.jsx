@@ -35,7 +35,7 @@ export default function Register() {
     }
 
     return (
-            <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0">
+            <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0 mt-3">
                 <img src={logo} class="img-fluid mb-2" alt="Logo"/>
                 <h3 className="text">Register</h3>
                 <form onSubmit={registerUser}>
@@ -58,7 +58,7 @@ export default function Register() {
                     <div className="form-group">
                         <label htmlFor="firstName">Personal Information</label>
                         <input className="form-control" type="text" onChange={(evt) => {setFirstName(evt.target.value)}} placeholder="First name" name="firstName" id="firstName" minLength="2" maxLength="20" required />
-                        <input className="form-control" type="text" onChange={(evt) => {setLastName(evt.target.value)}} placeholder="Last name" name="lastName" id="lastName" minLength="2" maxLength="20" required />
+                        <input className="form-control mt-2" type="text" onChange={(evt) => {setLastName(evt.target.value)}} placeholder="Last name" name="lastName" id="lastName" minLength="2" maxLength="20" required />
                     </div>
                     <button type="submit" className="btn btn-primary">Register</button>
                 </form>

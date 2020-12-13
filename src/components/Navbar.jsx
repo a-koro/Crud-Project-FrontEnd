@@ -10,6 +10,7 @@ export default function Navbar() {
 
     const { userData, setUserData } = React.useContext(UserContext);
     const { setSearchData } = React.useContext(SearchContext);
+    const [categories, setCategories] = React.useState([]);
 
 
     const [suggestions, setSuggestions] = React.useState([]);
@@ -54,9 +55,21 @@ export default function Navbar() {
         localStorage.setItem("auth-token", "");
     }
 
+    function getCategories() {
+        fetch("/api/getCategories")
+            .then(response => response.json())
+            .then(data => {
+                setCategories(data.sort((a, b) => (a.name > b.name) ? 1 : -1));
+            });
+    }
+
+    React.useEffect(() => {
+        getCategories();
+    }, []);
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light mb-4">
-            <Link className="navbar-brand" to='/'><img src={logo} height='35'/></Link>
+            <Link className="navbar-brand" to='/'><img src={logo} height='35' /></Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -65,6 +78,16 @@ export default function Navbar() {
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
                         <Link to="/articles" className="nav-link">Articles</Link>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Read
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {categories.map((element) => {
+                                return <a className="dropdown-item" href={element._id}>{element.name}</a>
+                            })}
+                        </div>
                     </li>
                     <li className="nav-item">
                         <Link to="/categories" className="nav-link">Categories</Link>
@@ -75,7 +98,7 @@ export default function Navbar() {
                                 <Link to="/myArticles" className="nav-link">My Articles</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/articleForm" className="nav-link">Create Article</Link>
+                                <Link to="/articleForm" className="nav-link">Write</Link>
                             </li>
                         </>
                     }
