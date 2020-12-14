@@ -25,6 +25,10 @@ export default function ArticleForm() {
             setError("Image larger than 1MB");
             evt.target.value = "";
         }
+        if(evt.target.files[0].name.length > 200) {
+            setError("Image name longer than 200 characters");
+            evt.target.value = "";
+        }
     }
 
     async function saveArticle(evt) {

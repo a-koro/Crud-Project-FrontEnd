@@ -79,19 +79,21 @@ export default function Navbar() {
                     <li className="nav-item">
                         <Link to="/articles" className="nav-link">Articles</Link>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li className="nav-item dropdown">
+                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Read
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                             {categories.map((element) => {
-                                return <a className="dropdown-item" href={element._id}>{element.name}</a>
+                                return <a className="dropdown-item" href={element._id} key={element._id}>{element.name}</a>
                             })}
                         </div>
                     </li>
-                    <li className="nav-item">
+                    {(userData.user && (userData.user.role === "admin")) &&
+                        <li className="nav-item">
                         <Link to="/categories" className="nav-link">Categories</Link>
                     </li>
+                    }
                     {(userData.user && (userData.user.role === "user")) &&
                         <>
                             <li className="nav-item">
