@@ -4,6 +4,7 @@ import UserContext from '../context/UserContext';
 import SearchContext from '../context/SearchContext';
 import {useHistory} from 'react-router-dom';
 import "../css/article.css";
+import TimeAgo from 'react-timeago';
 
 export default function PrevArticle(props) {
     const [dateTime, setDateTime] = useState(new Date());
@@ -34,12 +35,13 @@ export default function PrevArticle(props) {
     }, []);
 
     return (
-        <div className="card p-1 mt-2 prevArticle" onClick={selectArticle}>
+        <div className="card p-1 mt-2 prevArticle border-top-0 border-right-0" onClick={selectArticle}>
             <div className="mb-0 card-body">
-                <h3 className="mb-4">{props.title}</h3>
+                <h4 className="mb-4">{props.title}</h4>
                 <div>
-                    <span className="float-left"># {props.firstName + " " + props.lastName}</span>
-                    <span className="float-right">{dateTime.toLocaleTimeString("en-UK") + " " + dateTime.toLocaleDateString("en-UK")}</span>
+                    <span className="float-left"><small className="text-muted">@{props.firstName + " " + props.lastName}</small></span>
+                    <span className="float-right"><small className="text-muted"><TimeAgo date={dateTime}/></small></span>
+                    {/* <span className="float-right">{dateTime.toLocaleTimeString("en-UK") + " " + dateTime.toLocaleDateString("en-UK")}</span> */}
                 </div>
             </div>
         </div>

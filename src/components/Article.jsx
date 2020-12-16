@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 import UserContext from '../context/UserContext';
+import TimeAgo from 'react-timeago';
 
 export default function Article(props) {
 
@@ -63,8 +64,8 @@ export default function Article(props) {
     }, []);
 
     return (
-        <div className="card mt-2">
-            <div className="card-header">
+        <div className="card mt-2 border-0">
+            <div className="card-header bg-white">
                 <div className="float-left"><h1 className="mt-2 font-italic">{props.article.title}</h1></div>
                 { ( (userData.user) && ((userData.user.id == props.article.user._id) || (userData.user.role === "admin"))) &&
                     <div className="float-right">
@@ -81,7 +82,7 @@ export default function Article(props) {
             </div>
             <div className="card-body">
                 { props.article.image &&
-                    <img className="card-img-top" src={"/api/articleImage?articleId=" + props.article._id} alt="Article Image"/>
+                    <img className="card-img-top mb-3" src={"/api/articleImage?articleId=" + props.article._id} alt="Article Image"/>
                 }
                 <blockquote className="blockquote mb-0">
                     { editable &&
@@ -92,9 +93,13 @@ export default function Article(props) {
                     { !editable &&
                         <p style={{'whiteSpace':'pre-wrap'}} className="font-italic">{content}</p>
                     }
-                    <div>
-                        <span className="float-left"><small># {props.article.user.firstName + " " + props.article.user.lastName}</small></span>
+                    {/* <div>
+                        <span className="float-left"><small className="text-muted">@{props.article.user.firstName + " " + props.article.user.lastName}</small></span>
                         <span className="float-right"><small>{dateTime.toLocaleTimeString("en-UK") + " " + dateTime.toLocaleDateString("en-UK")}</small></span>
+                    </div> */}
+                    <div>
+                        <span className="card-text float-left"><small className="text-muted">{"@" + props.article.user.firstName + " " + props.article.user.lastName}</small></span>
+                        <span className="card-text float-right"><small className="text-muted"><TimeAgo date={props.article.createdAt}/></small></span>
                     </div>
                 </blockquote>
             </div>

@@ -123,7 +123,7 @@ export default function ArticleForm() {
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleFormControlFile1">Image</label>
-                    <input type="file" className="form-control-file" accept=".jpg,.png" name="image" aria-describedby="imageHelp" onChange={checkFileSize}/>
+                    <input type="file" className="form-control-file" accept=".jpg,.png" name="image" aria-describedby="imageHelp" onChange={checkFileSize} required/>
                     <small id="imageHelp" className="form-text text-muted">Images accepted up to 1MB</small>
                 </div>
                 <button type="submit" className="btn btn-primary">Publish</button>
