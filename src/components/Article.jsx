@@ -66,10 +66,10 @@ export default function Article(props) {
     return (
         <div className="card mt-2 border-0">
             <div className="card-header bg-white">
-                <div className="float-left"><h1 className="mt-2 font-italic">{props.article.title}</h1></div>
+                <p className="text-muted mb-0">{props.article.category.name}</p>
+                <div className="float-left"><h1 className="font-italic">{props.article.title}</h1></div>
                 { ( (userData.user) && ((userData.user.id == props.article.user._id) || (userData.user.role === "admin"))) &&
                     <div className="float-right">
-                        <span className="mr-2">Category: {props.article.category.name}</span>
                         { editable &&
                             <button type="button" className="btn btn-outline-warning mx-1" onClick={updateArticle}>Update</button>
                         }

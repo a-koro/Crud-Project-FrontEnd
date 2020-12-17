@@ -13,6 +13,8 @@ import Axios from 'axios';
 import Register from './components/Register';
 import Login from './components/Login';
 import MyArticles from './components/MyArticles';
+import Footer from './components/Footer';
+import './css/footer.css';
 
 function App() {
 
@@ -55,7 +57,8 @@ function App() {
   }, []);
 
   return (
-    <div className="container p-0">
+    <>
+    <div className="container p-0 mainBox">
       <BrowserRouter>
         <UserContext.Provider value={{ userData, setUserData }}>
           <SearchContext.Provider value={{ searchData, setSearchData }}>
@@ -78,6 +81,8 @@ function App() {
         </UserContext.Provider>
       </BrowserRouter>
     </div>
+    <Footer className="footerBox"/>
+    </>
   );
 }
 

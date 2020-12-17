@@ -36,7 +36,7 @@ export default function Register() {
 
     return (
             <div className="col-md-4 col-xs-12 offset-md-4 offset-xs-0 mt-3">
-                <img src={logo} class="img-fluid mb-2" alt="Logo"/>
+                <img src={logo} className="img-fluid mb-2" alt="Logo"/>
                 <h3 className="text">Register</h3>
                 <form onSubmit={registerUser}>
                     { error && 

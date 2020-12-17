@@ -23,7 +23,7 @@ export default function ImagePrevArticle(props) {
             <div className="card-body pl-2 pt-0">
                 <small className="text-muted">{props.article.category.name}</small>
                 <h5 className="card-title">{props.article.title}</h5>
-                <p className="card-text">{props.article.content.split(". ")[0] + "."}</p>
+                <p className="card-text">{props.article.content.split(".")[0] + "."}</p>
                 <div>
                     <span className="card-text float-left"><small className="text-muted">{"@" + props.article.user.firstName + " " + props.article.user.lastName}</small></span>
                     <span className="card-text float-right"><small className="text-muted"><TimeAgo date={props.article.createdAt} /></small></span>

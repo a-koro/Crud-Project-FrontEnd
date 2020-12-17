@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ImagePrevArticle from './ImagePrevArticle';
 import ImagePrevArticleSmall from './ImagePrevArticleSmall';
 import PrevArticle from './PrevArticle';
+import Axios from 'axios';
 
 
 export default function ArticleList() {
@@ -10,13 +11,23 @@ export default function ArticleList() {
     const [update, setUpdate] = useState(true);
     const [categories, setCategories] = useState([]);
     const [randomTop, setRandomTop] = useState([]);
+    const [trending, setTrending] = useState([]);
+
+    async function fetchTrendingArticles() {
+        try {
+            const trendingArticlesResponse = await Axios.get('/api/getTrendingArticles');
+            setTrending(trendingArticlesResponse.data);
+        } catch(err) {
+            console.log(err);
+        }
+    }
 
     async function fetchFromGetArticles() {
         await fetch("/api/getArticles")
             .then(response => response.json())
             .then((data) => {
-                setElements(data);
-                setRandomTop(data.slice(0,5).sort(() => Math.random() - 0.5));
+                setElements(data.slice(4,-1));
+                setRandomTop(data.slice(0,4).sort(() => Math.random() - 0.5));
             });
     }
 
@@ -28,17 +39,20 @@ export default function ArticleList() {
             });
     }
 
-    function getFilteredArticles(evt) {
-
+    async function getFilteredArticles(evt) {
+        
         if (!evt.target.value) {
             fetchFromGetArticles();
         }
         else {
-            fetch('/api/getFilteredArticles?category=' + evt.target.value)
-                .then(response => response.json())
-                .then(data => {
-                    setElements(data);
+            try {
+                await Axios.get('/api/getFilteredArticles?category=' + evt.target.value)
+                .then((response) => {
+                    setElements(response.data);
                 });
+            } catch(err) {
+                console.log(err);
+            }
         }
     }
 
@@ -48,6 +62,7 @@ export default function ArticleList() {
 
     useEffect(() => {
         getCategories();
+        fetchTrendingArticles();
     }, []);
 
     return (
@@ -72,22 +87,21 @@ export default function ArticleList() {
                     })}
                 </select>
                 {elements.map((element) => {
-                    return <PrevArticle
-                        key={element._id}
-                        title={element.title}
-                        firstName={element.user.firstName}
-                        lastName={element.user.lastName}
-                        articleId={element._id}
-                        category={element.category.name} />
-                })}
+                        return <PrevArticle
+                            key={element._id}
+                            title={element.title}
+                            firstName={element.user.firstName}
+                            lastName={element.user.lastName}
+                            articleId={element._id}
+                            category={element.category.name} />
+                        }
+                )}
             </div>
             <div className="col-md-4 offset-md-1 mt-5">
                 <h5 className="text-right mb-4">Trending on Articl-O-matic</h5>
-                {(elements.length > 0) &&
-                    elements.slice(0,5).map((element) => {
-                        return <><ImagePrevArticleSmall key={element._id} article={element}/><hr/></>
-                    }
-                )}
+                {trending.map((trend) => {
+                        return <><ImagePrevArticleSmall key={trend._id} article={trend}/><hr/></>
+                })}
             </div>
         </>
     );

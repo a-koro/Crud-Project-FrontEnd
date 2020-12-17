@@ -24,8 +24,7 @@ export default function ArticleForm() {
         if(evt.target.files[0].size > 1000000) {
             setError("Image larger than 1MB");
             evt.target.value = "";
-        }
-        if(evt.target.files[0].name.length > 200) {
+        } else if(evt.target.files[0].name.length > 200) {
             setError("Image name longer than 200 characters");
             evt.target.value = "";
         }
