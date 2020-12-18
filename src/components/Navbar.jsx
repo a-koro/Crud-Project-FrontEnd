@@ -5,6 +5,7 @@ import "../css/search.css";
 import UserContext from '../context/UserContext';
 import SearchContext from '../context/SearchContext';
 import logo from '../articlomatic.png';
+import Axios from 'axios';
 
 export default function Navbar() {
 
@@ -17,29 +18,28 @@ export default function Navbar() {
     const [searchValue, setSearchValue] = React.useState("");
     const history = useHistory();
 
-    function searchArticlesByTitle(evt) {
+    async function searchArticlesByTitle(evt) {
         setSearchValue(evt.target.value);
 
         if (evt.target.value.length > 1) {
-            fetch('/api/searchArticlesByTitle?title=' + evt.target.value)
-                .then(response => response.json())
-                .then(data => {
-                    setSuggestions(data);
+            await Axios.get('/api/searchArticlesByTitle?title=' + evt.target.value)
+                .then((response) => {
+                    setSuggestions(response.data);
                 });
         } else {
             setSuggestions([]);
         }
     }
 
-    function getSpecificArticle(evt) {
+    async function getSpecificArticle(evt) {
         setSearchValue("");
 
-        fetch('/api/getSpecificArticle?id=' + evt.target.id)
-            .then(response => response.json())
-            .then(data => {
-                setSearchData(data);
+        await Axios.get('/api/getSpecificArticle?id=' + evt.target.id)
+            .then((response) =>{
+                setSearchData(response.data);
                 history.push('/searchResults');
             });
+
         setSuggestions([]);
     }
 
@@ -55,11 +55,10 @@ export default function Navbar() {
         localStorage.setItem("auth-token", "");
     }
 
-    function getCategories() {
-        fetch("/api/getCategories")
-            .then(response => response.json())
-            .then(data => {
-                setCategories(data.sort((a, b) => (a.name > b.name) ? 1 : -1));
+    async function getCategories() {
+        await Axios.get('/api/getCategories')
+            .then((response) => {
+                setCategories(response.data.sort((a, b) => (a.name > b.name) ? 1 : -1));
             });
     }
 

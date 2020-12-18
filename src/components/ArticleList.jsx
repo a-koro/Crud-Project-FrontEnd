@@ -23,19 +23,17 @@ export default function ArticleList() {
     }
 
     async function fetchFromGetArticles() {
-        await fetch("/api/getArticles")
-            .then(response => response.json())
-            .then((data) => {
-                setElements(data.slice(4,-1));
-                setRandomTop(data.slice(0,4).sort(() => Math.random() - 0.5));
-            });
+        await Axios.get('/api/getArticles')
+        .then((response) => {
+            setElements(response.data.slice(4,-1));
+            setRandomTop(response.data.slice(0,4).sort(() => Math.random() - 0.5));
+        });
     }
 
-    function getCategories() {
-        fetch("/api/getCategories")
-            .then(response => response.json())
-            .then(data => {
-                setCategories(data.sort((a, b) => (a.name > b.name) ? 1 : -1));
+    async function getCategories() {
+        await Axios.get('/api/getCategories')
+            .then((response) => {
+                setCategories(response.data.sort((a, b) => (a.name > b.name) ? 1 : -1));
             });
     }
 

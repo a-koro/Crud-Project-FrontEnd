@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Category from './Category';
+import Axios from 'axios';
 
 export default function CategoryList() {
 
     const [update, setUpdate] = useState(true);
     const [categories, setCategories] = useState([]);
 
-    function getCategories() {
-        fetch("/api/getCategories")
-            .then(response => response.json())
-            .then(data => {
-                setCategories(data.sort((a, b) => (a.name > b.name) ? 1 : -1));
+    async function getCategories() {
+        await Axios.get('/api/getCategories')
+            .then((response) => {
+                setCategories(response.data.sort((a, b) => (a.name > b.name) ? 1 : -1));
             });
     }
 

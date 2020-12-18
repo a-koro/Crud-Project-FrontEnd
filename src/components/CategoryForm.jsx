@@ -1,37 +1,37 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import UserContext from '../context/UserContext';
+import Axios from 'axios';
 
 export default function CategoryForm() {
 
     const {userData} = React.useContext(UserContext);
     const history = useHistory();
 
-    function saveArticle(evt) {
+    async function saveArticle(evt) {
 
         evt.preventDefault();
 
-        fetch('/api/addCategory', {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': userData.token
-            },
-            body: JSON.stringify({
-                'name': evt.target.name.value
+        try {
+            await Axios.post('/api/addCategory',
+            {'name': evt.target.name.value},
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': userData.token
+                }
             })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if(data.exists) {
-                alert("Category exists");
-            }
-            else {
-                history.push('/categories');
-            }
-        }).catch(err => {
-            console.log(err.response.data.msg);
-        });
+            .then((response) => {
+                if(response.data.exists) {
+                    alert("Category exists");
+                }
+                else {
+                    history.push('/categories');
+                }
+            });
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     return (

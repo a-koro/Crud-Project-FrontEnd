@@ -27,29 +27,28 @@ export default function MyArticles() {
         
     }
 
-    function getCategories() {
-        fetch("/api/getCategories")
-            .then(response => response.json())
-            .then(data => {
-                setCategories(data.sort((a, b) => (a.name > b.name) ? 1 : -1));
+    async function getCategories() {
+        await Axios.get('/api/getCategories')
+            .then((response) => {
+                setCategories(response.data.sort((a, b) => (a.name > b.name) ? 1 : -1));
             });
     }
 
-    function getFilteredArticles(evt) {
+    async function getFilteredArticles(evt) {
         if (!evt.target.value) {
             fetchMyArticles();
         }
         else {
-            fetch('/api/getUsersFilteredArticles?category=' + evt.target.value, {
-                method: "POST",
-                headers: {
+            await Axios.post('/api/getUsersFilteredArticles?category=' + evt.target.value,
+                null,
+                {
+                    headers: {
                     'x-auth-token': userData.token
+                    }
+                }).then((response) => {
+                    setElements(response.data);
                 }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    setElements(data);
-                });
+            );
         }
     }
 

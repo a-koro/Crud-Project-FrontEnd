@@ -12,11 +12,10 @@ export default function ArticleForm() {
 
     const { userData } = React.useContext(UserContext);
 
-    function getCategories() {
-        fetch("/api/getCategories")
-            .then(response => response.json())
-            .then(data => {
-                setCategories(data.sort((a, b) => (a.name > b.name) ? 1 : -1));
+    async function getCategories() {
+        await Axios.get('/api/getCategories')
+            .then((response) => {
+                setCategories(response.data.sort((a, b) => (a.name > b.name) ? 1 : -1));
             });
     }
 
@@ -70,24 +69,6 @@ export default function ArticleForm() {
         } catch (err) {
             setError(err.response.data.error);
         }
-        // await fetch('/api/addArticle', {
-        //     method: "POST",
-        //     headers: {
-        //         'x-auth-token': userData.token,
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({
-        //         "title": evt.target.title.value,
-        //         "content": evt.target.content.value,
-        //         "category": evt.target.category.value
-        //     })
-        // }).then((response) => {
-        //     response.json();
-        // }).then(data => {
-        //     history.push('/articles');
-        // }).catch((err) => {
-        //     setError(err);
-        // });
     }
 
     useEffect(() => {
