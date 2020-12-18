@@ -4,8 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import Axios from 'axios';
-Axios.defaults.baseURL = 'https://mern-articlomaric-app.herokuapp.com';
+// import Axios from 'axios';
+// if(process.env.BASE_URL) {
+//   Axios.defaults.baseURL = process.env.BASE_URL;
+// }
 
 ReactDOM.render(
   <React.StrictMode>
