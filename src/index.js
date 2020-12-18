@@ -4,10 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// import Axios from 'axios';
-// if(process.env.BASE_URL) {
-//   Axios.defaults.baseURL = process.env.BASE_URL;
-// }
+import Axios from 'axios';
+console.log("This is the base url" + process.env.BASE_URL);
+if(process.env.BASE_URL) {
+  Axios.defaults.baseURL = process.env.BASE_URL;
+}
 
 ReactDOM.render(
   <React.StrictMode>
