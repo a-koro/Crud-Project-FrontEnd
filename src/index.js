@@ -5,8 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import Axios from 'axios';
-if(process.env.baseUrl) {
-  Axios.defaults.baseURL = 'https://mern-articlomaric-app.herokuapp.com';
+if(process.env.BASE_URL) {
+  Axios.defaults.baseURL = process.env.BASE_URL;
 }
 
 ReactDOM.render(
