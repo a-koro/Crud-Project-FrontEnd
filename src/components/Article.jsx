@@ -82,7 +82,7 @@ export default function Article(props) {
             </div>
             <div className="card-body">
                 { props.article.image &&
-                    <img className="card-img-top mb-3" src={"/api/articleImage?articleId=" + props.article._id} alt="Article Image"/>
+                    <img className="card-img-top mb-3" src={"https://mern-articlomaric-app.herokuapp.com/api/articleImage?articleId=" + props.article._id} alt="Article Image"/>
                 }
                 <blockquote className="blockquote mb-0">
                     { editable &&

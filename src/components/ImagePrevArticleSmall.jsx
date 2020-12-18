@@ -30,7 +30,7 @@ export default function ImagePrevArticleSmall(props) {
                     
                 </div>
                 <div className="col-4">
-                    <img src={"/api/articleImage?articleId=" + props.article._id} className="img-fluid imageScalingSmall" alt="Article Image" />
+                    <img src={"https://mern-articlomaric-app.herokuapp.com/api/articleImage?articleId=" + props.article._id} className="img-fluid imageScalingSmall" alt="Article Image" />
                 </div>
             </div>
 
