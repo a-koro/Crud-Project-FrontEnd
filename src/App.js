@@ -15,6 +15,7 @@ import Login from './components/Login';
 import MyArticles from './components/MyArticles';
 import Footer from './components/Footer';
 import './css/footer.css';
+import FilteredArticleList from './components/FilteredArticleList';
 
 function App() {
 
@@ -72,6 +73,7 @@ function App() {
                 <Route path="/articleForm" component={ArticleForm} />
                 <Route path="/categoryForm" component={CategoryForm} />
                 <Route path="/searchResults" component={SearchResults} />
+                <Route path="/filteredArticleList"render={(props) => <FilteredArticleList {...props} key={Math.random()}/>}/>
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
                 <Route path="/admin" />

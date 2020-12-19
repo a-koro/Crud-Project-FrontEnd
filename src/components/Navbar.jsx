@@ -84,7 +84,12 @@ export default function Navbar() {
                         </a>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                             {categories.map((element) => {
-                                return <a className="dropdown-item" href={element._id} key={element._id}>{element.name}</a>
+                                return <Link to={{
+                                    pathname: "/filteredArticleList",
+                                    state: {
+                                        category: element._id
+                                    }
+                                }} className="dropdown-item" href={element._id} key={element._id}>{element.name}</Link>
                             })}
                         </div>
                     </li>

@@ -6,10 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import Axios from 'axios';
 require('dotenv').config();
 
-console.log(process.env);
-if(process.env.NODE_ENV == "production") {
-  Axios.defaults.baseURL = process.env.BASE_URL;
-}
+Axios.defaults.baseURL = "https://mern-articlomaric-app.herokuapp.com";
 
 ReactDOM.render(
   <React.StrictMode>
