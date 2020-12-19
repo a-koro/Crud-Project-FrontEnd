@@ -2,18 +2,14 @@ import React, { useState } from 'react';
 import Axios from 'axios';
 import UserContext from '../context/UserContext';
 import TimeAgo from 'react-timeago';
+require('dotenv').config();
 
 export default function Article(props) {
 
-    const [dateTime, setDateTime] = useState(new Date());
     const [editable, setEditable] = useState(false);
     const [content, setContent] = useState(props.article.content);
     const {userData} = React.useContext(UserContext);
-
-    function convertDateTime() {
-        let timeStamp = props.article._id.toString().substring(0, 8);
-        setDateTime(new Date(parseInt(timeStamp, 16) * 1000));
-    }
+    const [baseUrl, setBaseUrl] = useState("");
 
     function editArticle() {
 
@@ -60,7 +56,9 @@ export default function Article(props) {
     };
 
     React.useEffect(() => {
-        convertDateTime();
+        if(process.env.NODE_ENV === "production") {
+            setBaseUrl(process.env.BASE_URL);
+        }
     }, []);
 
     return (
@@ -82,7 +80,7 @@ export default function Article(props) {
             </div>
             <div className="card-body">
                 { props.article.image &&
-                    <img className="card-img-top mb-3" src={"https://mern-articlomaric-app.herokuapp.com/api/articleImage?articleId=" + props.article._id} alt="Article Image"/>
+                    <img className="card-img-top mb-3" src={baseUrl + "/api/articleImage?articleId=" + props.article._id} alt="Article Image"/>
                 }
                 <blockquote className="blockquote mb-0">
                     { editable &&

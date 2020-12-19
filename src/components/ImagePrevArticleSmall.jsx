@@ -8,6 +8,7 @@ import TimeAgo from 'react-timeago';
 export default function ImagePrevArticleSmall(props) {
     const { setSearchData } = React.useContext(SearchContext);
     const history = useHistory();
+    const [baseUrl, setBaseUrl] = React.useState("");
 
     async function selectArticle(evt) {
         const selectedArticle = await Axios.get(
@@ -16,6 +17,12 @@ export default function ImagePrevArticleSmall(props) {
         setSearchData(selectedArticle.data);
         history.push('/searchResults');
     }
+
+    React.useEffect(() => {
+        if(process.env.NODE_ENV === "production") {
+            setBaseUrl(process.env.BASE_URL);
+        }
+    }, []);
 
     return (
         <div className="card border-0 mb-4 prevArticle" onClick={selectArticle}>
@@ -30,7 +37,7 @@ export default function ImagePrevArticleSmall(props) {
                     
                 </div>
                 <div className="col-4">
-                    <img src={"https://mern-articlomaric-app.herokuapp.com/api/articleImage?articleId=" + props.article._id} className="img-fluid imageScalingSmall" alt="Article Image" />
+                    <img src={baseUrl + "/api/articleImage?articleId=" + props.article._id} className="img-fluid imageScalingSmall" alt="Article Image" />
                 </div>
             </div>
 

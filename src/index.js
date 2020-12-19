@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
 import Axios from 'axios';
-Axios.defaults.baseURL = 'https://mern-articlomaric-app.herokuapp.com';
+require('dotenv').config();
+
+if(process.env.NODE_ENV === "production") {
+  Axios.defaults.baseURL = process.env.BASE_URL;
+}
 
 ReactDOM.render(
   <React.StrictMode>

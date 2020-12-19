@@ -12,6 +12,7 @@ export default function ArticleList() {
     const [categories, setCategories] = useState([]);
     const [randomTop, setRandomTop] = useState([]);
     const [trending, setTrending] = useState([]);
+    const [loadingSpinner, setLoadingSpinner] = React.useState(true);
 
     async function fetchTrendingArticles() {
         try {
@@ -28,6 +29,7 @@ export default function ArticleList() {
             setElements(response.data.slice(4,-1));
             setRandomTop(response.data.slice(0,4).sort(() => Math.random() - 0.5));
         });
+        setLoadingSpinner(false);
     }
 
     async function getCategories() {
@@ -65,6 +67,13 @@ export default function ArticleList() {
 
     return (
         <>
+            { loadingSpinner &&
+                <div className="col-12 text-center mt-5">
+                    <div className="spinner-border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+            }
             <div className="col-md-6 col-xs-12">
                 {(randomTop.length > 0) &&
                     <ImagePrevArticle key={randomTop[0]._id} article={randomTop[0]}/>
@@ -78,7 +87,7 @@ export default function ArticleList() {
                 )}
             </div>
             <div className="col-md-7 col-xs-12 mt-3">
-                <select className="form-control form-control-sm col-2" onChange={getFilteredArticles}>
+                <select className="form-control form-control-sm col-md-3" onChange={getFilteredArticles}>
                     <option value="">Filter by</option>
                     {categories.map((category) => {
                         return <option value={category._id} key={category._id}>{category.name}</option>
