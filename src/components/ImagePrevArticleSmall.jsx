@@ -19,8 +19,8 @@ export default function ImagePrevArticleSmall(props) {
     }
 
     React.useEffect(() => {
-        if(process.env.NODE_ENV === "production") {
-            setBaseUrl(process.env.BASE_URL);
+        if(true) {
+            setBaseUrl("https://mern-articlomaric-app.herokuapp.com");
         }
     }, []);
 
