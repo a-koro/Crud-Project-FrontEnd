@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import Axios from 'axios';
 require('dotenv').config();
 
-if(process.env.NODE_ENV === "production") {
+if(process.env.NODE_ENV == "production") {
   Axios.defaults.baseURL = process.env.BASE_URL;
 }
 
